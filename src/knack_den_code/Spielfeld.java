@@ -13,10 +13,19 @@ public class Spielfeld {
 
     private Spielblock[] mFeld;
     private Steckfigur[] zielCode;
-    
-    public Spielfeld() {
-        this.mFeld = new Spielblock[10];
+    private static int anzahlSpielblöcke;
+
+    public Spielfeld(int anzahlSpielblöcke, int anzahlanSteckfigurTypen) {
+        Spielfeld.anzahlSpielblöcke = anzahlSpielblöcke;
+        this.mFeld = new Spielblock[anzahlSpielblöcke];
         this.zielCode = new Steckfigur[4];
+        inizalisiereMFeld(anzahlanSteckfigurTypen);
+    }
+
+    private void inizalisiereMFeld(int anzahlanSteckfigurTypen) {
+        for (int i = 0; i < 10; i++) {
+            mFeld[i] = new Spielblock(anzahlanSteckfigurTypen);
+        }
     }
 
     /**
@@ -34,10 +43,21 @@ public class Spielfeld {
 
     /**
      * Setzt eine Spielfigur in den Lösungscode.
+     *
      * @param position Position der Spielfigur im Lösungscode.
      * @param steckfigur
      */
-    public void setzeSteckfigur(int position,Steckfigur steckfigur){
+    public void setzeSteckfigur(int position, Steckfigur steckfigur) {
         zielCode[position] = steckfigur;
+    }
+
+    /**
+     * Überprüft den angegebenen Block und setzt die Prüfsteinfiguren.
+     *
+     * @param block Nummerr des zu überprüfenden Blockes.Natürliche Zahl
+     * zwischen 0 bis 9
+     */
+    public void kontroliereBlock(int block) {
+        int koreckterTypundStelle = mFeld[block].koreckterTypundStelle(zielCode);
     }
 }
