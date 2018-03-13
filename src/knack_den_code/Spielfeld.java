@@ -29,15 +29,7 @@ public class Spielfeld {
      * @param steckfigur einzusetzende Spielfigur.
      */
     public void setzeSteckfigur(int blockNummer, int position, Steckfigur steckfigur) {
-        int i = 0;
-        while (i != blockNummer) {            
-            i++;
-            if (i >= 9) {
-                return;
-            }
-        }
-        mFeld[i].setzeSteckfigur(position, steckfigur);
-        
+        mFeld[blockNummer].setzeSteckfigur(position, steckfigur);
     }
 
     /**
