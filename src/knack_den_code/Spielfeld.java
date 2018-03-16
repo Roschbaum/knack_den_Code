@@ -23,6 +23,19 @@ public class Spielfeld {
         this.zielCode = new Steckfigur[4];
     }
 
+    public Steckfigur[][] getmFeld() {
+        return mFeld;
+
+    }
+
+    public Steckfigur[] getZielCode() {
+        return zielCode;
+    }
+
+    public Prüfsteinfigur[][] getmPFeld() {
+        return mPFeld;
+    }
+
     /**
      * Sortiert die Spielfigur im Spielfeld an der entsprechenden Position ein.
      *
