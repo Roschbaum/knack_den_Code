@@ -12,15 +12,16 @@ package knack_den_code;
 public class Spielfeld {
 
     private Steckfigur[][] mFeld;
-    private Prüfsteinfigur[][] mPFeld;
+    private Pruefsteinfigur[][] mPFeld;
     private Steckfigur[] zielCode;
-    private static int anzahlSpielblöcke;
+    private static int anzahlSpielbloecke;
 
-    public Spielfeld(int anzahlSpielblöcke, int anzahlanSteckfigurTypen) {
-        this.mPFeld = new Prüfsteinfigur[anzahlSpielblöcke][4];
-        Spielfeld.anzahlSpielblöcke = anzahlSpielblöcke;
-        this.mFeld = new Steckfigur[anzahlSpielblöcke][4];
+    public Spielfeld(int anzahlSpielbloecke, int anzahlanSteckfigurTypen) {
+        this.mPFeld = new Pruefsteinfigur[anzahlSpielbloecke][4];
+        Spielfeld.anzahlSpielbloecke = anzahlSpielbloecke;
+        this.mFeld = new Steckfigur[anzahlSpielbloecke][4];
         this.zielCode = new Steckfigur[4];
+        befuelleSpielfeld();
     }
 
     public Steckfigur[][] getmFeld() {
@@ -32,16 +33,16 @@ public class Spielfeld {
         return zielCode;
     }
 
-    public Prüfsteinfigur[][] getmPFeld() {
+    public Pruefsteinfigur[][] getmPFeld() {
         return mPFeld;
     }
 
     /**
      * Sortiert die Spielfigur im Spielfeld an der entsprechenden Position ein.
      *
-     * @param blockNummer Gibt die Position des Blockes an. Natürliche Zahl 0
+     * @param blockNummer Gibt die Position des Blockes an. Natuerliche Zahl 0
      * bis 9. 0 ist im Spielfeld links.
-     * @param position Gibt die Position im Block an. Natürliche Zahl 0 bis 3. 0
+     * @param position Gibt die Position im Block an. Natuerliche Zahl 0 bis 3. 0
      * ist im Spilfeld unten
      * @param steckfigur einzusetzende Spielfigur.
      */
@@ -50,9 +51,9 @@ public class Spielfeld {
     }
 
     /**
-     * Setzt eine Spielfigur in den Lösungscode.
+     * Setzt eine Spielfigur in den Loesungscode.
      *
-     * @param position Position der Spielfigur im Lösungscode.
+     * @param position Position der Spielfigur im Loesungscode.
      * @param steckfigur
      */
     public void setzeSteckfigur(int position, Steckfigur steckfigur) {
@@ -63,20 +64,30 @@ public class Spielfeld {
      *
      * @param blockNummer
      * @param position
-     * @param prüfsteinfigur
+     * @param pruefsteinfigur
      */
-    public void setzePrüfsteinfigur(int blockNummer, int position, Prüfsteinfigur prüfsteinfigur) {
-        mPFeld[blockNummer][position] = prüfsteinfigur;
+    public void setzePruefsteinfigur(int blockNummer, int position, Pruefsteinfigur pruefsteinfigur) {
+        mPFeld[blockNummer][position] = pruefsteinfigur;
     }
 
     /**
-     * Überprüft den angegebenen Block und setzt die Prüfsteinfiguren.
+     * Überprueft den angegebenen Block und setzt die Pruefsteinfiguren.
      *
-     * @param block Nummerr des zu überprüfenden Blockes.Natürliche Zahl
+     * @param block Nummerr des zu ueberpruefenden Blockes.Natuerliche Zahl
      * zwischen 0 bis 9
      */
     public void kontroliereBlock(int block) {
 //        int koreckterTypundStelle = mFeld[block].koreckterTypundStelle(zielCode);
 //        int koreckterTyp = mFeld[block].korreckterTyp(zielCode)-koreckterTypundStelle;
+    }
+
+    private void befuelleSpielfeld() {
+        for (int i = 0; i < anzahlSpielbloecke; i++) {
+            for (int j = 0; j < 4; j++) {
+                mFeld[i][j] = new Steckfigur(77);
+                mPFeld[i][j] = new Pruefsteinfigur(77);
+            }
+        }
+
     }
 }

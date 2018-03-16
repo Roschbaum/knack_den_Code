@@ -22,7 +22,7 @@ public class Kontrolspieler {
     /**
      * Bestimt die Anzahl der richtigen Steckfiguren.
      *
-     * @param Lösung
+     * @param Loesung
      * @return Anzahl der richtigen Seckfiguren.(natürliche Zahl 0 bis 4)
      */
     public int koreckterTypundStelle(Steckfigur[] zielCode,Steckfigur[] versuchsFeld) {
@@ -38,7 +38,7 @@ public class Kontrolspieler {
     /**
      * Bestmt die Anzahl der Steckfiguren deren Typ korreckt ist
      *
-     * @param zielCode Lösung
+     * @param zielCode Loesung
      * @return Natürliche Zahl zwischen 0-4
      */
     public int korreckterTyp(Steckfigur[] zielCode, Steckfigur[] versuchsFeld) {

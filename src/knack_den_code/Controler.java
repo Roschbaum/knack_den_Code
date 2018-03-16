@@ -14,13 +14,13 @@ import java.util.Scanner;
 public class Controler {
 
     private Spielfeld mSpielfeld;
-    private static final int anzahlSpielböcke = 10;
+    private static final int anzahlSpielboecke = 10;
     private static final int anzahlStecksteinfiguren = 5;
-    private int[] mPrüfsteine = new int[2];
+    private int[] mPruefsteine = new int[2];
     private int[] steckfiguren = new int[anzahlStecksteinfiguren];
 
     public Controler() {
-        this.mSpielfeld = new Spielfeld(anzahlSpielböcke, anzahlStecksteinfiguren);
+        this.mSpielfeld = new Spielfeld(anzahlSpielboecke, anzahlStecksteinfiguren);
         erzeugefiguren();
     }
 
@@ -30,13 +30,14 @@ public class Controler {
             case "setztSteckfigur":
                 setztSteckfigur(scanner);
                 break;
-            case "setztSteckfigurLösung":
-                setztSteckfigurLösung(scanner);
-            case "setzePrüfsteinfigur":
-                setzePrüfsteinfigur(scanner);
+            case "setztSteckfigurLoesung":
+                setztSteckfigurLoesung(scanner);
                 break;
-            case "zeigeLösung":
-                zeigeLösung();
+            case "setzePruefsteinfigur":
+                setzePruefsteinfigur(scanner);
+                break;
+            case "zeigeLoesung":
+                zeigeLoesung();
                 break;
             case "zeigeFeld":
                 zeigeFeld();
@@ -45,7 +46,7 @@ public class Controler {
     }
 
     private void erzeugefiguren() {
-        for (int i : mPrüfsteine) {
+        for (int i : mPruefsteine) {
             i = 20;
         }
         for (int i : steckfiguren) {
@@ -55,38 +56,46 @@ public class Controler {
     }
 
     private Steckfigur getSteckfigur(int typ) {
+        if (steckfiguren[typ] > 0) {
+            steckfiguren[typ]--;
+            return new Steckfigur(typ);
+        }
         return null;
     }
 
-    private Prüfsteinfigur getPrüfsteinfigur(int typ) {
+    private Pruefsteinfigur getPruefsteinfigur(int typ) {
+        if (steckfiguren[typ] > 0) {
+            steckfiguren[typ]--;
+            return new Pruefsteinfigur(typ);
+        }
         return null;
     }
 
-    private void setzePrüfsteinfigur(Scanner scanner) {
-        mSpielfeld.setzePrüfsteinfigur(scanner.nextInt(), scanner.nextInt(), getPrüfsteinfigur(scanner.nextInt()));
+    private void setzePruefsteinfigur(Scanner scanner) {
+        mSpielfeld.setzePruefsteinfigur(scanner.nextInt(), scanner.nextInt(), getPruefsteinfigur(scanner.nextInt()));
     }
 
     private void setztSteckfigur(Scanner scanner) {
         mSpielfeld.setzeSteckfigur(scanner.nextInt(), scanner.nextInt(), getSteckfigur(scanner.nextInt()));
     }
 
-    private void setztSteckfigurLösung(Scanner scanner) {
+    private void setztSteckfigurLoesung(Scanner scanner) {
         for (int i = 0; i < 4; i++) {
             mSpielfeld.setzeSteckfigur(i, getSteckfigur(scanner.nextInt()));
-
+            
         }
     }
 
     public void ausgeben(String s) {
-
+        System.out.println(s);
     }
 
     private void zeigeFeld() {
         Steckfigur[][] mFeld = mSpielfeld.getmFeld();
         String m = "";
         String g = "";
-        Prüfsteinfigur[][] mpFeld = mSpielfeld.getmPFeld();
-        for (int i = 0; i < anzahlSpielböcke; i++) {
+        Pruefsteinfigur[][] mpFeld = mSpielfeld.getmPFeld();
+        for (int i = 0; i < anzahlSpielboecke; i++) {
             for (int j = 0; j < anzahlStecksteinfiguren; j++) {
                 m += mFeld[i][j].getTyp() + " ";
                 g += mpFeld[i][j].getTyp() + " ";
@@ -97,7 +106,7 @@ public class Controler {
         }
     }
 
-    private void zeigeLösung() {
+    private void zeigeLoesung() {
         Steckfigur[] zielCode = mSpielfeld.getZielCode();
         String s = "";
         for (int i = 0; i < 4; i++) {

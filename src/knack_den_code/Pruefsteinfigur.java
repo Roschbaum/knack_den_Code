@@ -9,15 +9,15 @@ package knack_den_code;
  *
  * @author Friedrich
  */
-public class Prüfsteinfigur {
+public class Pruefsteinfigur {
 
     private int Typ;
 
     /**
-     *  Prüfstein in der Realität
+     *  Pruefstein in der Realität
      * @param Typ Art des Steins zwischen 0-2
      */
-    public Prüfsteinfigur(int Typ) {
+    public Pruefsteinfigur(int Typ) {
         this.Typ = Typ;
     }
 
