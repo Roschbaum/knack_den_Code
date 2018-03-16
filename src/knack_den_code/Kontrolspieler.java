@@ -9,43 +9,23 @@ package knack_den_code;
  *
  * @author Friedrich
  */
-public class Spielblock {
+public class Kontrolspieler {
 
-    private Steckfigur[] versuchsFeld;
-    private Prüfsteinfigur[] kontrollFeld;
     private static int anzahlanSteckfigurTypen;
 
-    public Spielblock(int anzahlanSteckfigurTypen) {
-        Spielblock.anzahlanSteckfigurTypen = anzahlanSteckfigurTypen;
-        this.versuchsFeld = new Steckfigur[4];
-        this.kontrollFeld = new Prüfsteinfigur[4];
+    public Kontrolspieler(int anzahlanSteckfigurTypen) {
+        Kontrolspieler.anzahlanSteckfigurTypen = anzahlanSteckfigurTypen;
+
     }
 
-    public Steckfigur[] getVersuchsfeld() {
-        return versuchsFeld;
-    }
-
-    public Prüfsteinfigur[] getLösung() {
-        return kontrollFeld;
-    }
-
-    /**
-     * Setzt die Spielfigur an die angegebenen Stelle
-     *
-     * @param position Stelle, natürliche Zahl von 0 bis 3
-     * @param steckfigur zu setzende Steckfigur
-     */
-    public void setzeSteckfigur(int position, Steckfigur steckfigur) {
-        versuchsFeld[position] = steckfigur;
-    }
-
+   
     /**
      * Bestimt die Anzahl der richtigen Steckfiguren.
      *
      * @param Lösung
      * @return Anzahl der richtigen Seckfiguren.(natürliche Zahl 0 bis 4)
      */
-    public int koreckterTypundStelle(Steckfigur[] zielCode) {
+    public int koreckterTypundStelle(Steckfigur[] zielCode,Steckfigur[] versuchsFeld) {
         int z = 0;
         for (int i = 0; i < 4; i++) {
             if (zielCode[i].getTyp() == versuchsFeld[i].getTyp()) {
@@ -55,7 +35,13 @@ public class Spielblock {
         return z;
     }
 
-    public int korreckterTyp(Steckfigur[] zielCode) {
+    /**
+     * Bestmt die Anzahl der Steckfiguren deren Typ korreckt ist
+     *
+     * @param zielCode Lösung
+     * @return Natürliche Zahl zwischen 0-4
+     */
+    public int korreckterTyp(Steckfigur[] zielCode, Steckfigur[] versuchsFeld) {
         int z = 0;
         int code;
         int versuch;

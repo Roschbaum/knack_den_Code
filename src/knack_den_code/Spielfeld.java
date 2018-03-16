@@ -11,19 +11,16 @@ package knack_den_code;
  */
 public class Spielfeld {
 
-    private Spielblock[] mFeld;
+    private Steckfigur[][] mFeld;
+    private Prüfsteinfigur[][] mPFeld;
     private Steckfigur[] zielCode;
     private static int anzahlSpielblöcke;
-    public Spielfeld(int  anzahlSpielblöcke,int anzahlanSteckfigurTypen) {
+
+    public Spielfeld(int anzahlSpielblöcke, int anzahlanSteckfigurTypen) {
+        this.mPFeld = new Prüfsteinfigur[anzahlSpielblöcke][4];
         Spielfeld.anzahlSpielblöcke = anzahlSpielblöcke;
-        this.mFeld = new Spielblock[anzahlSpielblöcke];
+        this.mFeld = new Steckfigur[anzahlSpielblöcke][4];
         this.zielCode = new Steckfigur[4];
-        inizalisiereMFeld(anzahlanSteckfigurTypen);
-    }
-    private  void inizalisiereMFeld(int anzahlanSteckfigurTypen){
-        for (int i = 0; i < anzahlSpielblöcke; i++) {
-            mFeld[i]= new Spielblock(anzahlanSteckfigurTypen);
-        }
     }
 
     /**
@@ -36,24 +33,37 @@ public class Spielfeld {
      * @param steckfigur einzusetzende Spielfigur.
      */
     public void setzeSteckfigur(int blockNummer, int position, Steckfigur steckfigur) {
-        mFeld[blockNummer].setzeSteckfigur(position, steckfigur);
+        mFeld[blockNummer][position] = steckfigur;
     }
 
     /**
      * Setzt eine Spielfigur in den Lösungscode.
+     *
      * @param position Position der Spielfigur im Lösungscode.
      * @param steckfigur
      */
-    public void setzeSteckfigur(int position,Steckfigur steckfigur){
+    public void setzeSteckfigur(int position, Steckfigur steckfigur) {
         zielCode[position] = steckfigur;
     }
 
     /**
-     *  Überprüft den angegebenen Block und setzt die Prüfsteinfiguren.
-     * @param block Nummerr des zu überprüfenden Blockes.Natürliche Zahl zwischen 0 bis 9
+     *
+     * @param blockNummer
+     * @param position
+     * @param prüfsteinfigur
      */
-    public void kontroliereBlock(int block){
-        int koreckterTypundStelle = mFeld[block].koreckterTypundStelle(zielCode);
-        int koreckterTyp = mFeld[block].korreckterTyp(zielCode)-koreckterTypundStelle;
+    public void setzePrüfsteinfigur(int blockNummer, int position, Prüfsteinfigur prüfsteinfigur) {
+        mPFeld[blockNummer][position] = prüfsteinfigur;
+    }
+
+    /**
+     * Überprüft den angegebenen Block und setzt die Prüfsteinfiguren.
+     *
+     * @param block Nummerr des zu überprüfenden Blockes.Natürliche Zahl
+     * zwischen 0 bis 9
+     */
+    public void kontroliereBlock(int block) {
+//        int koreckterTypundStelle = mFeld[block].koreckterTypundStelle(zielCode);
+//        int koreckterTyp = mFeld[block].korreckterTyp(zielCode)-koreckterTypundStelle;
     }
 }

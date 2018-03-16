@@ -13,6 +13,10 @@ public class Prüfsteinfigur {
 
     private int Typ;
 
+    /**
+     *  Prüfstein in der Realität
+     * @param Typ Art des Steins zwischen 0-2
+     */
     public Prüfsteinfigur(int Typ) {
         this.Typ = Typ;
     }
