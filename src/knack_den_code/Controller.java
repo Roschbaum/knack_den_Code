@@ -11,7 +11,7 @@ import java.util.Scanner;
  *
  * @author Friedrich
  */
-public class Controler {
+public class Controller {
 
     private Spielfeld mSpielfeld;
     private static final int anzahlSpielboecke = 10;
@@ -19,9 +19,20 @@ public class Controler {
     private int[] mPruefsteine = new int[2];
     private int[] steckfiguren = new int[anzahlStecksteinfiguren];
 
-    public Controler() {
+    public Controller() {
         this.mSpielfeld = new Spielfeld(anzahlSpielboecke, anzahlStecksteinfiguren);
         erzeugefiguren();
+    }
+
+    public static void main(String[] args) {
+        Controller controller = new Controller();
+        controller.spiele("setztSteckfigurLoesung 1 1 1 1");
+        controller.spiele("zeigeLoesung");
+        controller.spiele("setztSteckfigur 1 2 1");
+        controller.spiele("zeigeFeld");
+        controller.spiele("setzePruefsteinfigur 1 1 1");
+        controller.spiele("zeigeFeld");
+                
     }
 
     public void spiele(String befehl) {
@@ -49,8 +60,8 @@ public class Controler {
         for (int i : mPruefsteine) {
             i = 20;
         }
-        for (int i : steckfiguren) {
-            i = 19;
+        for (int i = 0; i < anzahlStecksteinfiguren; i++) {
+            steckfiguren[i] = 19;
         }
 
     }
@@ -82,12 +93,11 @@ public class Controler {
     private void setztSteckfigurLoesung(Scanner scanner) {
         for (int i = 0; i < 4; i++) {
             mSpielfeld.setzeSteckfigur(i, getSteckfigur(scanner.nextInt()));
-            
         }
     }
 
     public void ausgeben(String s) {
-        System.out.println(s);
+        System.out.print(s);
     }
 
     private void zeigeFeld() {
@@ -96,14 +106,16 @@ public class Controler {
         String g = "";
         Pruefsteinfigur[][] mpFeld = mSpielfeld.getmPFeld();
         for (int i = 0; i < anzahlSpielboecke; i++) {
-            for (int j = 0; j < anzahlStecksteinfiguren; j++) {
+            for (int j = 0; j < 4; j++) {
                 m += mFeld[i][j].getTyp() + " ";
                 g += mpFeld[i][j].getTyp() + " ";
             }
-            ausgeben(m + "x" + g + "/n");
+            ausgeben(m + "x" + g + "\n");
             m = "";
             g = "";
+            
         }
+        ausgeben("\n");
     }
 
     private void zeigeLoesung() {

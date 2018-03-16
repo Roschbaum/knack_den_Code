@@ -58,6 +58,7 @@ public class Spielfeld {
      */
     public void setzeSteckfigur(int position, Steckfigur steckfigur) {
         zielCode[position] = steckfigur;
+        System.out.println(steckfigur.getTyp());
     }
 
     /**
