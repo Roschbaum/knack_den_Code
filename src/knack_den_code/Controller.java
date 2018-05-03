@@ -1,10 +1,10 @@
+package knack_den_code;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package knack_den_code;
-
 import java.util.Scanner;
 
 /**
@@ -13,7 +13,6 @@ import java.util.Scanner;
  */
 public class Controller {
 
-    private View view;
     private Spielfeld mSpielfeld;
     private static final int anzahlSpielboecke = 10;
     private static final int anzahlStecksteinfiguren = 5;
@@ -25,19 +24,15 @@ public class Controller {
         erzeugefiguren();
     }
 
-    public static void main(String[] args) {
-        Controller controller = new Controller();
-        controller.spiele("setztSteckfigurLoesung 1 1 1 1");
-        controller.spiele("zeigeLoesung");
-        controller.spiele("setztSteckfigur 1 2 1");
-        controller.spiele("zeigeFeld");
-        controller.spiele("setzePruefsteinfigur 1 1 1");
-        controller.spiele("zeigeFeld");
-
+    public void spiele() {
+        Scanner scanner = new Scanner(System.in);
+        spieleZug(scanner.nextLine());
+        spieleZug("zeigeFeld");
+        spiele();
     }
 
-    public void spiele(String befehl) {
-        Scanner scanner = new Scanner(System.in);
+    public void spieleZug(String befehl) {
+        Scanner scanner = new Scanner(befehl);
         switch (scanner.next()) {
             case "setztSteckfigur":
                 setztSteckfigur(scanner);
@@ -57,21 +52,16 @@ public class Controller {
             case "loescheFeld":
                 loescheFeld();
                 break;
-            case "kontroliereBlock":
-                kontroliereBlock();
-                break;
         }
     }
 
     private void erzeugefiguren() {
-//        for (int i : mPruefsteine) {
-//            i = 20;
-//        }
-        
-        for (int i = 0; i < anzahlStecksteinfiguren; i++) {
-            steckfiguren[i] = 19;
+        for (int i : mPruefsteine) {
+            i = 20;
         }
-
+        for (int i = 0; i < anzahlStecksteinfiguren; i++) {
+            steckfiguren[i] = 20;
+        }
     }
 
     private Steckfigur getSteckfigur(int typ) {
@@ -83,8 +73,8 @@ public class Controller {
     }
 
     private Pruefsteinfigur getPruefsteinfigur(int typ) {
-        if (steckfiguren[typ] > 0) {
-            steckfiguren[typ]--;
+        if (mPruefsteine[typ] > 0) {
+            mPruefsteine[typ]--;
             return new Pruefsteinfigur(typ);
         }
         return null;
@@ -108,13 +98,9 @@ public class Controller {
         System.out.print(s);
     }
 
-    private void kontroliereBlock() {
-        mKontrolspieler.
-    }
-
     private void loescheFeld() {
         for (int i = 0; i < 100; i++) {
-            ausgeben(" ");
+            ausgeben("\n ");
         }
     }
 
@@ -128,9 +114,10 @@ public class Controller {
                 m += mFeld[i][j].getTyp() + " ";
                 g += mpFeld[i][j].getTyp() + " ";
             }
-            ausgeben(m + "x" + g + "\n");
+            ausgeben(m + "            " + g + "\n");
             m = "";
             g = "";
+
         }
         ausgeben("\n");
     }

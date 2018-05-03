@@ -1,9 +1,11 @@
+package knack_den_code;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package knack_den_code;
+ 
 
 /**
  *
@@ -15,7 +17,6 @@ public class Spielfeld {
     private Pruefsteinfigur[][] mPFeld;
     private Steckfigur[] zielCode;
     private static int anzahlSpielbloecke;
-    private Kontrolspieler mKontrolspieler;
 
     public Spielfeld(int anzahlSpielbloecke, int anzahlanSteckfigurTypen) {
         this.mPFeld = new Pruefsteinfigur[anzahlSpielbloecke][4];
@@ -43,8 +44,8 @@ public class Spielfeld {
      *
      * @param blockNummer Gibt die Position des Blockes an. Natuerliche Zahl 0
      * bis 9. 0 ist im Spielfeld links.
-     * @param position Gibt die Position im Block an. Natuerliche Zahl 0 bis 3.
-     * 0 ist im Spilfeld unten
+     * @param position Gibt die Position im Block an. Natuerliche Zahl 0 bis 3. 0
+     * ist im Spilfeld unten
      * @param steckfigur einzusetzende Spielfigur.
      */
     public void setzeSteckfigur(int blockNummer, int position, Steckfigur steckfigur) {
@@ -73,21 +74,14 @@ public class Spielfeld {
     }
 
     /**
-     * Überprueft den angegebenen Block und setzt die Pruefsteinfiguren.
+     * Ãœberprueft den angegebenen Block und setzt die Pruefsteinfiguren.
      *
      * @param block Nummerr des zu ueberpruefenden Blockes.Natuerliche Zahl
      * zwischen 0 bis 9
      */
     public void kontroliereBlock(int block) {
-        Steckfigur[] blockkopie;
-        blockkopie = new Steckfigur[4];
-        for (int i = 0; i < 4; i++) {
-            blockkopie[i] = mFeld[block][i];
-        }
-        int koreckterTypundStelle = mKontrolspieler.koreckterTypundStelle(blockkopie, zielCode);
-        int koreckterTyp = mKontrolspieler.korreckterTyp(blockkopie,zielCode) - koreckterTypundStelle;
-        
-        
+//        int koreckterTypundStelle = mFeld[block].koreckterTypundStelle(zielCode);
+//        int koreckterTyp = mFeld[block].korreckterTyp(zielCode)-koreckterTypundStelle;
     }
 
     private void befuelleSpielfeld() {
