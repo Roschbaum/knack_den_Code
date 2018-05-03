@@ -18,14 +18,13 @@ public class Kontrolspieler {
 
     }
 
-   
     /**
      * Bestimt die Anzahl der richtigen Steckfiguren.
      *
      * @param Loesung
      * @return Anzahl der richtigen Seckfiguren.(natürliche Zahl 0 bis 4)
      */
-    public int koreckterTypundStelle(Steckfigur[] zielCode,Steckfigur[] versuchsFeld) {
+    public int koreckterTypundStelle(Steckfigur[] zielCode, Steckfigur[] versuchsFeld) {
         int z = 0;
         for (int i = 0; i < 4; i++) {
             if (zielCode[i].getTyp() == versuchsFeld[i].getTyp()) {

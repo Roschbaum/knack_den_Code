@@ -13,6 +13,7 @@ import java.util.Scanner;
  */
 public class Controller {
 
+    private View view;
     private Spielfeld mSpielfeld;
     private static final int anzahlSpielboecke = 10;
     private static final int anzahlStecksteinfiguren = 5;
@@ -32,11 +33,11 @@ public class Controller {
         controller.spiele("zeigeFeld");
         controller.spiele("setzePruefsteinfigur 1 1 1");
         controller.spiele("zeigeFeld");
-                
+
     }
 
     public void spiele(String befehl) {
-        Scanner scanner = new Scanner(befehl);
+        Scanner scanner = new Scanner(System.in);
         switch (scanner.next()) {
             case "setztSteckfigur":
                 setztSteckfigur(scanner);
@@ -53,13 +54,20 @@ public class Controller {
             case "zeigeFeld":
                 zeigeFeld();
                 break;
+            case "loescheFeld":
+                loescheFeld();
+                break;
+            case "kontroliereBlock":
+                kontroliereBlock();
+                break;
         }
     }
 
     private void erzeugefiguren() {
-        for (int i : mPruefsteine) {
-            i = 20;
-        }
+//        for (int i : mPruefsteine) {
+//            i = 20;
+//        }
+        
         for (int i = 0; i < anzahlStecksteinfiguren; i++) {
             steckfiguren[i] = 19;
         }
@@ -100,6 +108,16 @@ public class Controller {
         System.out.print(s);
     }
 
+    private void kontroliereBlock() {
+        mKontrolspieler.
+    }
+
+    private void loescheFeld() {
+        for (int i = 0; i < 100; i++) {
+            ausgeben(" ");
+        }
+    }
+
     private void zeigeFeld() {
         Steckfigur[][] mFeld = mSpielfeld.getmFeld();
         String m = "";
@@ -113,7 +131,6 @@ public class Controller {
             ausgeben(m + "x" + g + "\n");
             m = "";
             g = "";
-            
         }
         ausgeben("\n");
     }

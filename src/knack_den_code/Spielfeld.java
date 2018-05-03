@@ -15,6 +15,7 @@ public class Spielfeld {
     private Pruefsteinfigur[][] mPFeld;
     private Steckfigur[] zielCode;
     private static int anzahlSpielbloecke;
+    private Kontrolspieler mKontrolspieler;
 
     public Spielfeld(int anzahlSpielbloecke, int anzahlanSteckfigurTypen) {
         this.mPFeld = new Pruefsteinfigur[anzahlSpielbloecke][4];
@@ -42,8 +43,8 @@ public class Spielfeld {
      *
      * @param blockNummer Gibt die Position des Blockes an. Natuerliche Zahl 0
      * bis 9. 0 ist im Spielfeld links.
-     * @param position Gibt die Position im Block an. Natuerliche Zahl 0 bis 3. 0
-     * ist im Spilfeld unten
+     * @param position Gibt die Position im Block an. Natuerliche Zahl 0 bis 3.
+     * 0 ist im Spilfeld unten
      * @param steckfigur einzusetzende Spielfigur.
      */
     public void setzeSteckfigur(int blockNummer, int position, Steckfigur steckfigur) {
@@ -78,15 +79,22 @@ public class Spielfeld {
      * zwischen 0 bis 9
      */
     public void kontroliereBlock(int block) {
-//        int koreckterTypundStelle = mFeld[block].koreckterTypundStelle(zielCode);
-//        int koreckterTyp = mFeld[block].korreckterTyp(zielCode)-koreckterTypundStelle;
+        Steckfigur[] blockkopie;
+        blockkopie = new Steckfigur[4];
+        for (int i = 0; i < 4; i++) {
+            blockkopie[i] = mFeld[block][i];
+        }
+        int koreckterTypundStelle = mKontrolspieler.koreckterTypundStelle(blockkopie, zielCode);
+        int koreckterTyp = mKontrolspieler.korreckterTyp(blockkopie,zielCode) - koreckterTypundStelle;
+        
+        
     }
 
     private void befuelleSpielfeld() {
         for (int i = 0; i < anzahlSpielbloecke; i++) {
             for (int j = 0; j < 4; j++) {
-                mFeld[i][j] = new Steckfigur(77);
-                mPFeld[i][j] = new Pruefsteinfigur(77);
+                mFeld[i][j] = new Steckfigur(-1);
+                mPFeld[i][j] = new Pruefsteinfigur(-1);
             }
         }
 
