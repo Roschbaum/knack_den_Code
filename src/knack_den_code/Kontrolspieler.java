@@ -11,10 +11,10 @@ package knack_den_code;
  */
 public class Kontrolspieler {
 
-    private static int anzahlanSteckfigurTypen;
+    private int anzahlanSteckfigurTypen;
 
     public Kontrolspieler(int anzahlanSteckfigurTypen) {
-        Kontrolspieler.anzahlanSteckfigurTypen = anzahlanSteckfigurTypen;
+        this.anzahlanSteckfigurTypen = anzahlanSteckfigurTypen;
 
     }
 

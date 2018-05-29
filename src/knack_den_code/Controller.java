@@ -5,6 +5,7 @@ package knack_den_code;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 /**
@@ -14,14 +15,14 @@ import java.util.Scanner;
 public class Controller {
 
     private Spielfeld mSpielfeld;
-    private static final int anzahlSpielboecke = 10;
-    private static final int anzahlStecksteinfiguren = 5;
-    private int[] mPruefsteine = new int[2];
-    private int[] steckfiguren = new int[anzahlStecksteinfiguren];
+    private final int anzahlSpielboecke;
+    private final int anzahlStecksteinfiguren;
 
-    public Controller() {
+    Controller(int anzahlDerVersuche, int anzahlSpielfigurTypen) {
+        anzahlSpielboecke = anzahlDerVersuche;
+        anzahlStecksteinfiguren = anzahlSpielfigurTypen;
         this.mSpielfeld = new Spielfeld(anzahlSpielboecke, anzahlStecksteinfiguren);
-        erzeugefiguren();
+
     }
 
     public void spiele() {
@@ -31,71 +32,71 @@ public class Controller {
         spiele();
     }
 
-    public void spieleZug(String befehl) {
+    /**
+     * Eingabe eines Befehls.
+     *
+     * @param befehl
+     * @return true befehl wurde ordnungsgemäs ausgeführt. false Befehl enthält
+     * einen Fehler. Falls ein eingabe Fehler vorliegt, wird dies ausgegeben.
+     */
+    public boolean spieleZug(String befehl) {
         Scanner scanner = new Scanner(befehl);
-        switch (scanner.next()) {
-            case "setztSteckfigur":
-                setztSteckfigur(scanner);
-                break;
-            case "setztSteckfigurLoesung":
-                setztSteckfigurLoesung(scanner);
-                break;
-            case "setzePruefsteinfigur":
-                setzePruefsteinfigur(scanner);
-                break;
-            case "zeigeLoesung":
-                zeigeLoesung();
-                break;
-            case "zeigeFeld":
-                zeigeFeld();
-                break;
-            case "loescheFeld":
-                loescheFeld();
-                break;
-        }
-    }
+        try {
+            switch (scanner.next()) {
+                case "setztSteckfigur":
+                    setztSteckfigur(scanner);
+                    break;
+                case "setztSteckfigurLoesung":
+                    setztSteckfigurLoesung(scanner);
+                    break;
+                case "setzePruefsteinfigur":
+                    setzePruefsteinfigur(scanner);
+                    break;
+                case "zeigeLoesung":
+                    zeigeLoesung();
+                    break;
+                case "zeigeFeld":
+                    zeigeFeld();
+                    break;
+                case "loescheFeld":
+                    loescheFeld();
+                    break;
+                case "kontorliereBlock":
+                    kontroliereBlock(scanner);
+                    break;
+                default:
+                    ausgeben("Befehl ist nicht vorhanden");
+                    return false;
 
-    private void erzeugefiguren() {
-        for (int i : mPruefsteine) {
-            i = 20;
+            }
+        } catch (NoSuchElementException e) {
+            ausgeben("Eingabe war fehlerhaft überprüfen Sie die Eingabesyntax");
+            return false;
         }
-        for (int i = 0; i < anzahlStecksteinfiguren; i++) {
-            steckfiguren[i] = 20;
-        }
-    }
+        return true;
 
-    private Steckfigur getSteckfigur(int typ) {
-        if (steckfiguren[typ] > 0) {
-            steckfiguren[typ]--;
-            return new Steckfigur(typ);
-        }
-        return null;
-    }
-
-    private Pruefsteinfigur getPruefsteinfigur(int typ) {
-        if (mPruefsteine[typ] > 0) {
-            mPruefsteine[typ]--;
-            return new Pruefsteinfigur(typ);
-        }
-        return null;
     }
 
     private void setzePruefsteinfigur(Scanner scanner) {
-        mSpielfeld.setzePruefsteinfigur(scanner.nextInt(), scanner.nextInt(), getPruefsteinfigur(scanner.nextInt()));
+        mSpielfeld.setzePruefsteinfigur(scanner.nextInt(), scanner.nextInt(), new Pruefsteinfigur(scanner.nextInt()));
     }
 
     private void setztSteckfigur(Scanner scanner) {
-        mSpielfeld.setzeSteckfigur(scanner.nextInt(), scanner.nextInt(), getSteckfigur(scanner.nextInt()));
+        mSpielfeld.setzeSteckfigur(scanner.nextInt(), scanner.nextInt(), new Steckfigur(scanner.nextInt()));
     }
 
     private void setztSteckfigurLoesung(Scanner scanner) {
         for (int i = 0; i < 4; i++) {
-            mSpielfeld.setzeSteckfigur(i, getSteckfigur(scanner.nextInt()));
+            mSpielfeld.setzeSteckfigur(i, new Steckfigur(scanner.nextInt()));
         }
     }
 
     public void ausgeben(String s) {
         System.out.print(s);
+    }
+
+    private void kontroliereBlock(Scanner scanner) {
+        mSpielfeld.kontroliereBlock(scanner.nextInt());
     }
 
     private void loescheFeld() {
@@ -109,12 +110,15 @@ public class Controller {
         String m = "";
         String g = "";
         Pruefsteinfigur[][] mpFeld = mSpielfeld.getmPFeld();
+        ausgeben("Hier sind die     |      Hier sind die "
+                + "\nVersuche des      |      Kontrollfiguren: "
+                + "\nCodeknackess:     |\n");
         for (int i = 0; i < anzahlSpielboecke; i++) {
             for (int j = 0; j < 4; j++) {
                 m += mFeld[i][j].getTyp() + " ";
                 g += mpFeld[i][j].getTyp() + " ";
             }
-            ausgeben(m + "            " + g + "\n");
+            ausgeben(m + "      |      " + g + "\n");
             m = "";
             g = "";
 
@@ -124,7 +128,7 @@ public class Controller {
 
     private void zeigeLoesung() {
         Steckfigur[] zielCode = mSpielfeld.getZielCode();
-        String s = "";
+        String s = "Hier ist der zuknackende Code:\n ";
         for (int i = 0; i < 4; i++) {
             s += zielCode[i].getTyp() + " ";
         }
